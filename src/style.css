@@ -1,0 +1,66 @@
+body {
+    background-color: var(--ecru);
+}
+.battlefield-cell {
+    border: 1px solid var(--vista-blue);
+    padding: 0;
+    background-color: var(--carmine);
+}
+.battlefield-cell:hover {
+    border: 1px solid var(--vista-blue);
+    padding: 0;
+    background-color: var(--feldgrau);
+}
+.battlefield-cell-content {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.battlefield-ship {
+    background-color: var(--yale-blue);
+}
+html {
+    --yale-blue: #133667ff;
+    --feldgrau: #495b4cff;
+    --ecru: #bfb48fff;
+    --vista-blue: #8390faff;
+    --carmine: #91171fff;
+}
+.battlefieldgame{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+/* attempt with img cover */
+.cover {
+   position: relative;
+   width: 2rem;
+   height: 2rem;
+   padding: 0;
+}
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: var(--vista-blue);
+    border-radius: 50%;
+    display: inline-block;
+}
+.battlefieldtitle{
+    display: grid;
+    grid-template-columns: 15% 30% 20% 20% 15%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "space1 title1 empty1 title2 empty2";
+    width: 100%;
+
+}
+.p1title{
+    grid-area: title1;
+}
+.p2title {
+    grid-area: title2;
+}
+.transparent {
+    opacity: 60%;
+}
