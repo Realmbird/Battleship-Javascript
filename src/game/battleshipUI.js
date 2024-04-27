@@ -5,6 +5,10 @@ import circle from '../img/circle-small.png'
 const DOMController = (() => {
     let player1, player2, current_turn
     
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+    }
+
     function initalsetup() {
         // let real = new Player(true) // real
         // let computer = new Player(false) //computer
@@ -57,11 +61,13 @@ const DOMController = (() => {
         if(current_player == 1){
             filltable(p1board, player1)
             filltable(p2board, player2, false)
-            // p2
+            computeraction(player1)
+            // p2 not active
         }else{
-            // p1
+            // p1 not active
             filltable(p1board, player1, false)
             filltable(p2board, player2)
+            computeraction(player2)
         }
     }
     function filltable(board, player, active = true) {
@@ -161,6 +167,27 @@ const DOMController = (() => {
         }
         
         board.append(table)
+    }
+    function computeraction(player) {
+        // when computer
+        let gameboard = player.gameboard
+        if(!player.real){
+            while (true) {
+                // random coords
+                let row = getRandomInt(10)
+                let col = getRandomInt(10)
+
+                //they are valid
+                if(gameboard.isvalid([row,col])){
+                    gameboard.recieveattack([row,col])
+                    current_turn++
+                    break
+                }
+            }
+            load()
+            
+        } 
+        
     }
     return {initalsetup}
 })()
