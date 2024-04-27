@@ -134,7 +134,24 @@ const DOMController = (() => {
                         // correctly updates board with x or .
                         gameboard.recieveattack([row,col])
                         current_turn++
-                        load()    
+                        load()
+                        let current_player = current_turn % 2
+                        // if(current_player == 1){
+                        //     filltable(p1board, player1)
+                        //     filltable(p2board, player2, false)
+                        //     // p2
+                        // }else{
+                        //     // p1
+                        //     filltable(p1board, player1, false)
+                        //     filltable(p2board, player2)
+                        // }
+                        if(gameboard.isallsunk()){
+                            const message = document.querySelector(".message")
+                            if(current_player == 0){
+                                current_player = 2
+                            }
+                            message.textContent = `Player ${current_player} Wins`     
+                        }    
                     }
                     // console.log(current_turn)
                 }
