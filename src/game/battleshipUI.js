@@ -64,6 +64,7 @@ const DOMController = (() => {
                 if(current_ship >= ship_order.length){
                     // hide coordinate form
                     document.querySelector(".battlefield-coordinates").style.display = "none"
+                    current_turn++
                     load()  
                 }else{
                     const currentship = document.querySelector(".cur-ship")
