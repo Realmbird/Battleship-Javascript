@@ -14,11 +14,26 @@ const DOMController = (() => {
         // let computer = new Player(false) //computer
         player1 = new Player(true) // real
         player2 = new Player(false) //computer
-        current_turn = 1
+        current_turn = 0
         
         defaultboard(player1)
         defaultboard(player2)
         load()
+        const defaultStart = document.querySelector(".default")
+        defaultStart.addEventListener("click", () => {
+            current_turn++
+            // hides start buttons
+            document.querySelector(".battlefield-controller").style.display = "none";
+            load()
+        })
+        const customStart = document.querySelector(".custom")
+        customStart.addEventListener("click", () => {
+            document.querySelector(".battlefield-controller").style.display = "none";
+            player1 = new Player(true) // real
+            player2 = new Player(false) //computer
+            defaultboard(player2)
+            load()
+        })
     }
     function defaultboard(player) {
         // contains 4(1) boats, 3(2) boats, 2(3) boats, 1(4) boat
@@ -57,18 +72,26 @@ const DOMController = (() => {
     function load() {
         const p1board = document.querySelector('.player-1 > table')
         const p2board = document.querySelector('.player-2 > table')
-        let current_player = current_turn % 2
-        if(current_player == 1){
-            filltable(p1board, player1)
+        // current_turn 0 means game has not yet started
+        if(current_turn == 0){
+            filltable(p1board, player1,false)
             filltable(p2board, player2, false)
-            computeraction(player1)
-            // p2 not active
         }else{
-            // p1 not active
-            filltable(p1board, player1, false)
-            filltable(p2board, player2)
-            computeraction(player2)
+            // game started
+            let current_player = current_turn % 2
+            if(current_player == 1){
+                filltable(p1board, player1)
+                filltable(p2board, player2, false)
+                computeraction(player1)
+                // p2 not active
+            }else{
+                // p1 not active
+                filltable(p1board, player1, false)
+                filltable(p2board, player2)
+                computeraction(player2)
+            }
         }
+        
     }
     function filltable(board, player, active = true) {
         let  board_data = player.gameboard.board

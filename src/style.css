@@ -64,3 +64,9 @@ html {
 .transparent {
     opacity: 60%;
 }
+.battlefield-controller {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
