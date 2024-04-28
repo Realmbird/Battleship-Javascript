@@ -31,10 +31,21 @@
             </table>
         </div>
     </div>
-    <h4 class = "message"></h4> 
     <div class="battlefield-controller">
-        <button class = "default">Default Start</button>
-        <button class = "custom">Custom Start</button>   
+        <button class="default">Default Start</button>
+        <button class="custom">Custom Start</button>
     </div>
+    <div class="battlefield-coordinates">
+        <!--gameboard.place(coordinates, ship)  -->
+        <div class="coords">Example [[0,0]] or [[0,1], [0,1]] make a list of coords for ship</div>
+
+        <div class = "coord-form">
+            <h2>Add Ship Form</h2>
+            <h4 class="cur-ship"></h4>
+            <label for="coordinates">Enter coordinates: </label>
+            <input type="text" id="coordinates" required />
+            <button class = "add-ship">Add Ship</button>
+        </div>
+   </div>
 </body>
 </html>

@@ -70,3 +70,13 @@ html {
     width: 100%;
     justify-content: space-evenly;
 }
+.battlefield-coordinates {
+    display: none;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.coord-form{
+    display: flex;
+    flex-direction: column;
+}

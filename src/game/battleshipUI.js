@@ -3,12 +3,25 @@ import { Gameboard } from "./gameboard";
 import { Ship } from "./ship";
 import circle from '../img/circle-small.png'
 const DOMController = (() => {
-    let player1, player2, current_turn
+    let player1, player2, current_turn, ship_order, current_ship
     
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
 
+    function customStringToArray(str) {
+        // Remove the outermost brackets if they exist
+        str = str.replace("[[", '').replace("]]", '');
+      
+        // Split the string on '],[' to get individual stringified pairs
+        const pairs = str.split('],[');
+      
+        // Map each pair to an array of numbers
+        return pairs.map(pair => {
+          return pair.split(',').map(Number);
+        });
+      }
+      
     function initalsetup() {
         // let real = new Player(true) // real
         // let computer = new Player(false) //computer
@@ -28,11 +41,54 @@ const DOMController = (() => {
         })
         const customStart = document.querySelector(".custom")
         customStart.addEventListener("click", () => {
+            ship_order = [1,1,1,1,2,2,2,3,3,4]
+            current_ship = [0]
             document.querySelector(".battlefield-controller").style.display = "none";
             player1 = new Player(true) // real
             player2 = new Player(false) //computer
+
+            const currentship = document.querySelector(".cur-ship")
+            currentship.textContent = `Current Ship Length ${ship_order[current_ship]}`
+            
+            // adding event listener to add ship button
+            const addship = document.querySelector(".add-ship")
+            addship.addEventListener("click", () => {
+                let length = ship_order[current_ship]
+                // place(coordinates, ship){
+                let curcoordinate = customStringToArray(document.querySelector("#coordinates").value)
+                console.log(curcoordinate)
+                let curship = new Ship(length)
+                player1.gameboard.place(curcoordinate, curship)    
+                current_ship++
+                // when index out of bounds
+                if(current_ship >= ship_order.length){
+                    // hide coordinate form
+                    document.querySelector(".battlefield-coordinates").style.display = "none"
+                    load()  
+                }else{
+                    const currentship = document.querySelector(".cur-ship")
+                    currentship.textContent = `Current Ship Length ${ship_order[current_ship]}`
+                    load()
+                }
+            })
             defaultboard(player2)
             load()
+            //shows ship placement
+            let placeshipcontroller = document.querySelector(".battlefield-coordinates")
+            placeshipcontroller.style.display = "flex"  
+
+            const p1board = document.querySelector('.player-1 > table')
+            // event listener to get coords temporary
+            p1board.addEventListener("click", () => {
+                const target = event.target
+                // when clicking on cell
+                if(target.matches(".battlefield-cell")){
+                    const row = target.dataset.row
+                    const col = target.dataset.col
+                    const coords = document.querySelector(".coords")
+                    coords.textContent = `Coordinate: [${row}, ${col}]`
+                }
+            })
         })
     }
     function defaultboard(player) {
