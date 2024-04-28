@@ -190,7 +190,10 @@ const DOMController = (() => {
                 
                 // might add active player type later using real as substitute
                 if(col instanceof Ship){
-                    gamecell.classList.add("battlefield-ship")
+                    if(player == player1){
+                        // show only for player 1
+                        gamecell.classList.add("battlefield-ship")
+                    }
                     // if ship there
                 }else {
                     if(col == "."){
@@ -236,7 +239,7 @@ const DOMController = (() => {
                             if(current_player == 0){
                                 current_player = 2
                             }
-                            message.textContent = `Player ${current_player} Wins`     
+                            message.textContent = `Player ${current_player} loses`     
                         }    
                     }
                     // console.log(current_turn)
@@ -251,7 +254,7 @@ const DOMController = (() => {
     function computeraction(player) {
         // when computer
         let gameboard = player.gameboard
-        if(!player.real){
+        if(player.real){
             while (true) {
                 // random coords
                 let row = getRandomInt(10)
